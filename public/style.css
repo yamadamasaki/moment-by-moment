@@ -129,6 +129,25 @@ a:hover { text-decoration-color: var(--accent); }
   overflow-wrap: anywhere;
 }
 .moment .meta time { letter-spacing: 0.02em; }
+.moment .meta .tag { text-decoration: none; }
+.moment .meta .tag:hover { text-decoration: underline; text-decoration-color: var(--line); }
+.moment .meta .tag.active { color: var(--accent); }
+
+/* Shown while filtering by a hashtag. */
+.filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin: -1rem 0 2rem;
+  padding: 0.45rem 0.9rem;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.filter .filter-tag { color: var(--accent); }
+.filter .filter-clear { font-size: 0.75rem; white-space: nowrap; }
 
 /* Emoji reactions: one centered line between moments, newest first. */
 .moment .reactions {

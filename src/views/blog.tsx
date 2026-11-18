@@ -31,7 +31,19 @@ export function MomentView({ moment, blogId }: { moment: StoredMoment; blogId: s
             <time datetime={htmlDatetime(moment.datetime)}>{moment.datetime}</time>
           </a>
         </div>
-        {moment.tags.length > 0 && <div>{moment.tags.map((t) => `#${t}`).join(", ")}</div>}
+        {moment.tags.length > 0 && (
+          <div class="tags">
+            {moment.tags.map((t, i) => (
+              <>
+                {i > 0 && ", "}
+                {/* Without JS this reloads with ?tag= (and shows everything); filter.js filters in place. */}
+                <a class="tag" href={`?tag=${encodeURIComponent(t)}`} data-tag={t}>
+                  #{t}
+                </a>
+              </>
+            ))}
+          </div>
+        )}
       </footer>
       <div class="reactions" data-moment={moment.id}>
         <button type="button" class="emojis" aria-label="絵文字を送る"></button>
@@ -57,6 +69,14 @@ export function BlogPage(props: { siteTitle: string; blog: Blog; moments: Stored
         </h1>
         {blog.description && <p>{blog.description}</p>}
       </header>
+      <div class="filter" hidden>
+        <span>
+          <span class="filter-tag"></span> の投稿
+        </span>
+        <a class="filter-clear" href={`/${blog.id}/`}>
+          すべて表示
+        </a>
+      </div>
       <main data-blog={blog.id}>
         {moments.length === 0 ? (
           <p class="empty">まだ何もありません</p>
@@ -69,6 +89,7 @@ export function BlogPage(props: { siteTitle: string; blog: Blog; moments: Stored
       </footer>
       <script src="/reactions.js" defer></script>
       <script src="/lightbox.js" defer></script>
+      <script src="/filter.js" defer></script>
     </Layout>
   );
 }
