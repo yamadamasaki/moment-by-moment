@@ -1,0 +1,31 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "moment-by-moment",
+  "main": "src/worker/index.tsx",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    // Only these paths reach the Worker; everything else is a static file.
+    "run_worker_first": ["/admin", "/auth/*", "/api/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "moment-by-moment",
+      // Replace with the id printed by `npx wrangler d1 create moment-by-moment`.
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "vars": {
+    // The public repo that holds content/. Fill these in.
+    "GITHUB_OWNER": "",
+    "GITHUB_REPO": "moment-by-moment",
+    "GITHUB_BRANCH": "main",
+    // The only GitHub account allowed to write.
+    "ALLOWED_USER": ""
+  }
+  // Secrets (wrangler secret put): GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, SESSION_SECRET
+}

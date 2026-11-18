@@ -5,17 +5,19 @@ Cloudflare の無料枠で動かす、ごく小さなマイクロブログ。
 - 本文は GitHub の public repo (`content/`) に JSON で置く
 - push すると Workers Builds が `npm run build` で静的 HTML / RSS を作り、配信する
 - `/admin` から書くと、GitHub API 経由で `content/posts/<blog>/` に commit される
+- 1 投稿につき画像を 1 枚添えられる。ブラウザで縮小 (長辺 1600px, WebP) してから、本文と同じ 1 commit で `content/images/<blog>/` に入る
 - 読む人は各投稿の下の線をクリックして、ひとことを送れる。ひとことは絵文字ひとつに変換され、D1 に保存される
 
 ```
 content/config.json                    サイト名・URL・blog の一覧
 content/posts/<blog>/<UTC時刻>.json     1 投稿 1 ファイル
+content/images/<blog>/<UTC時刻>.webp    添付画像 (あれば)
 src/build/      静的生成 (content/ → dist/)
 src/worker/     /admin, /auth/*, /api/reactions だけを処理する Worker (Hono)
 src/lib/emoji*  ひとこと → 絵文字の変換と、そのキーワード索引 (npm run gen:emoji で再生成)
 migrations/     D1 のスキーマ
 src/views/      Hono JSX のテンプレート
-public/         そのまま dist/ にコピーされる (style.css)
+public/         そのまま dist/ にコピーされる (style.css, reactions.js, lightbox.js)
 ```
 
 投稿ファイルの形式:
@@ -24,7 +26,13 @@ public/         そのまま dist/ にコピーされる (style.css)
 {
   "datetime": "2026-11-18T13:55:30+09:00[Asia/Tokyo]",
   "body": "本文 (300 文字まで)",
-  "tags": ["朝", "季節"]
+  "tags": ["朝", "季節"],
+  "image": {                                  // 省略可
+    "file": "2026-11-18T04-55-30Z.webp",
+    "width": 1600,
+    "height": 1200,
+    "alt": "添付の写真"                         // 画像を出せない環境向けの説明
+  }
 }
 ```
 
@@ -61,6 +69,13 @@ blog を増やすには `content/config.json` の `blogs` に追加する (id �
    - Deploy command: `npm run db:migrate:remote && npx wrangler deploy`
 
 以後は `/admin` から書けば、push → 自動ビルド → 1 分ほどで反映される。
+
+## 画像
+
+- 書く画面で選ぶと、ブラウザが長辺 1600px の WebP に縮小する (EXIF の位置情報なども消える)。Safari などで WebP にできない場合は JPEG
+- 表示は本文の右に小さな正方形のサムネイル。クリックで拡大、Esc かクリックで閉じる。JS が無ければ画像そのものを開く
+- `alt` は「画像の説明」欄の内容。空なら「添付の写真」。RSS では本文の後に `<img alt>` と `<enclosure>` を付ける
+- ビルド時に、投稿が指している画像が無ければビルドを失敗させる
 
 ## 絵文字コメント
 

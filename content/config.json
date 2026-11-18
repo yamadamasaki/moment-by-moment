@@ -1,0 +1,10 @@
+{
+  "site": {
+    "title": "moment by moment",
+    "url": "https://moment-by-moment.example.workers.dev"
+  },
+  "blogs": [
+    { "id": "everyday", "title": "日々", "description": "その日、ふと思ったこと。" },
+    { "id": "reading", "title": "読む", "description": "読みながら書きとめた一行。" }
+  ]
+}
