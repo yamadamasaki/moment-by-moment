@@ -14,18 +14,17 @@
     {
       "binding": "DB",
       "database_name": "moment-by-moment",
-      // Replace with the id printed by `npx wrangler d1 create moment-by-moment`.
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_id": "0adb1249-5d8d-4ffd-ad2b-eeae2680698f",
       "migrations_dir": "migrations"
     }
   ],
   "vars": {
     // The public repo that holds content/. Fill these in.
-    "GITHUB_OWNER": "",
+    "GITHUB_OWNER": "yamadamasaki",
     "GITHUB_REPO": "moment-by-moment",
-    "GITHUB_BRANCH": "main",
+    "GITHUB_BRANCH": "master",
     // The only GitHub account allowed to write.
-    "ALLOWED_USER": ""
+    "ALLOWED_USER": "yamadamasaki"
   }
   // Secrets (wrangler secret put): GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, SESSION_SECRET
 }

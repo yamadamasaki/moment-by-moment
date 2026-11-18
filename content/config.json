@@ -1,7 +1,7 @@
 {
   "site": {
     "title": "moment by moment",
-    "url": "https://moment-by-moment.example.workers.dev"
+    "url": "https://moment-by-moment.moment-by-moment.workers.dev"
   },
   "blogs": [
     { "id": "everyday", "title": "日々", "description": "その日、ふと思ったこと。" },
