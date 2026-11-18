@@ -7,3 +7,6 @@ dist/
 .idea/
 .omc/
 *.log
+
+# The static site generator lives here; overrides a global "build" ignore rule.
+!/src/build/
