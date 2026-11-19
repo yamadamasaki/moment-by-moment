@@ -4,7 +4,7 @@
     "url": "https://moment-by-moment.moment-by-moment.workers.dev"
   },
   "blogs": [
-    { "id": "everyday", "title": "日々", "description": "その日、ふと思ったこと。" },
-    { "id": "reading", "title": "読む", "description": "読みながら書きとめた一行。" }
+    { "id": "conversensus", "title": "conversensus", "description": "グラフではなす" },
+    { "id": "anarchitecture", "title": "anarchitecture", "description": "かたちのないかたち" }
   ]
 }
