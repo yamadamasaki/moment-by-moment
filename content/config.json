@@ -5,6 +5,7 @@
   },
   "blogs": [
     { "id": "conversensus", "title": "conversensus", "description": "グラフではなす" },
-    { "id": "anarchitecture", "title": "anarchitecture", "description": "かたちのないかたち" }
+    { "id": "anarchitecture", "title": "anarchitecture", "description": "かたちのないかたち" },
+    { "id": "ananarchitect", "title": "an anarchitect", "description": "あるアナキテクト" }
   ]
 }
